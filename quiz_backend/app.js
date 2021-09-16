@@ -1,23 +1,12 @@
 const express = require('express')
 const cors = require('cors')
-const axios = require('axios')
-const Quiz = require('./models/Quiz')
 const app = express()
 
-let quiz;
+const quizRouter = require('./routes/quizRouter')
 
 app.use(express.json())
 app.use(cors())
-
-app.use(async (req, res, next) => {
-  const quizData = await axios('https://opentdb.com/api.php?amount=10')
-  quiz = new Quiz(quizData.data.results)
-  next()
-})
-
-app.get('/quiz', (req, res) => {
-  res.json(quiz.convertQuizDataToJson())
-})
+app.use(quizRouter)
 
 const PORT = 3000
 app.listen(3000, () => {
