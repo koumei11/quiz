@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const Quiz = require('../models/Quiz')
+const apiRequest = require('../middlewares/apiRequest')
 
-router.get('/quiz', (req, res) => {
-  const quiz = new Quiz()
+router.get('/quiz', apiRequest, (req, res) => {
+  const quiz = req.quiz
   res.json(quiz.convertQuizDataToJson())
 })
 

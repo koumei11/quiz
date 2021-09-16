@@ -1,11 +1,11 @@
 const axios = require('axios')
 
 class Quiz {
-  constructor() {
-    axios('https://opentdb.com/api.php?amount=10')
-      .then(response => {
-        this._quizzes = response.data.results
-      })
+  _quizzes
+  
+  async getQuizData() {
+    const response = await axios('https://opentdb.com/api.php?amount=10')
+    this._quizzes = response.data.results
   }
 
   createAnswersArray(quiz) {
