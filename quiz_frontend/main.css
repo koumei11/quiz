@@ -1,0 +1,18 @@
+.main-section {
+  border-top: 1px solid #555555;
+  border-bottom: 1px solid #555555;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.quiz-category {
+  margin-top: 20px;
+}
+
+.quiz-difficulty {
+  margin-bottom: 20px;
+}
+
+button {
+  margin-top: 5px;
+}
