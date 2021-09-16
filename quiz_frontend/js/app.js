@@ -1,5 +1,3 @@
-import QuizCollection from './QuizCollection.js';
-
 // Quiz variables
 let allQuiz = [];
 let currentQuestion = {};
@@ -22,8 +20,9 @@ async function startQuizGame(e) {
   totalCorrectAns = 0;
   startScreen.style.display = 'none';
   loadScreen.style.display = 'block';
-  allQuiz = await QuizCollection.getQuizData();
-  currentQuestion = QuizCollection.drop();
+  const fetchedQuiz = await fetch('http://localhost:3000/quiz')
+  allQuiz = await fetchedQuiz.json()
+  currentQuestion = allQuiz.shift()
   createQiuzBlock(currentQuestion);
   loadScreen.style.display = 'none';
   document.getElementsByTagName('body')[0].appendChild(qiuzBlock);
@@ -35,7 +34,7 @@ async function startQuizGame(e) {
  */
 function createQiuzBlock(quizObject) {
   // Create quiz number block
-  createBlockElements('H1', 'SPAN', '問題', QuizCollection.getQuestionNumber(), 'quiz-number');
+  createBlockElements('H1', 'SPAN', '問題', 10 - allQuiz.length, 'quiz-number');
 
   // Create category block
   createBlockElements('H3', 'SPAN', '[ジャンル]', quizObject.category, 'quiz-category');
@@ -85,7 +84,7 @@ function createBlockElement(parentNode, childElement, textContent, className) {
  */
 function createChoiceButtons(quizObject) {
   if (quizObject.type === 'multiple') {
-    const choicesArray = quizObject.createChoicesArray();
+    const choicesArray = quizObject.answers;
     qiuzBlock.appendChild(createChoiceButton(choicesArray[0]));
     qiuzBlock.appendChild(createChoiceButton(choicesArray[1]));
     qiuzBlock.appendChild(createChoiceButton(choicesArray[2]));
@@ -126,7 +125,7 @@ function checkUserAnswer(e) {
 function displayNextScreen() {
   qiuzBlock.innerHTML = '';
   if (allQuiz.length !== 0) {
-    currentQuestion = QuizCollection.drop();
+    currentQuestion = allQuiz.shift()
     createQiuzBlock(currentQuestion);
   } else {
     qiuzBlock.parentNode.removeChild(qiuzBlock);
