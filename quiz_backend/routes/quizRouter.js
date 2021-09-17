@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const getQuiz = require('../controllers/quiz')
 
-router.get('/', (req, res) => {
-  const data = req.quizData
-  res.json(data)
-})
+router.get('/', getQuiz)
 
 module.exports = router
