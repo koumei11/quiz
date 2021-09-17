@@ -1,10 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const apiRequest = require('../middlewares/apiRequest')
 
-router.get('/quiz', apiRequest, (req, res) => {
-  const quiz = req.quiz
-  res.json(quiz.convertQuizDataToJson())
+router.get('/', (req, res) => {
+  const data = req.quizData
+  res.json(data)
 })
 
 module.exports = router

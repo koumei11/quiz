@@ -7,4 +7,12 @@ const apiRequest = async (req, res, next) => {
   next()
 }
 
-module.exports = apiRequest
+const convertJson = (req, res, next) => {
+  req.quizData = req.quiz.convertQuizDataToJson()
+  next()
+}
+
+module.exports = {
+  apiRequest,
+  convertJson
+}
